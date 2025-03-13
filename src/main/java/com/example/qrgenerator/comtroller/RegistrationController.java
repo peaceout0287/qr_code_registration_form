@@ -36,7 +36,7 @@ public class RegistrationController {
 
     @GetMapping("/qrcode")
     public void generateQRCode(HttpServletResponse response) throws Exception {
-        String registrationUrl = "http://localhost:8080/register";
+        String registrationUrl = "http://192.168.1.187:8080/register";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(registrationUrl, BarcodeFormat.QR_CODE, 200, 200);
         
