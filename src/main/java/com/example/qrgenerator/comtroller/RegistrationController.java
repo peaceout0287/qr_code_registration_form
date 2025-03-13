@@ -27,16 +27,23 @@ public class RegistrationController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    private String containerName;
+
+    private String containerPort;
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("message", "Scan the QR Code to Register");
         return "home";
     }
+ 
 
     @GetMapping("/qrcode")
     public void generateQRCode(HttpServletResponse response) throws Exception {
-        String registrationUrl = "http://192.168.1.187:8080/register";
+	String containerName = System.getenv("CONTAINER_NAME");
+        String containerPort = System.getenv("CONTAINER_PORT");
+        String registrationUrl = "http://" + containerName + ":" + containerPort + "/register";;
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(registrationUrl, BarcodeFormat.QR_CODE, 200, 200);
         
